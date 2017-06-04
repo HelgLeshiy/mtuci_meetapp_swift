@@ -24,7 +24,7 @@ class RegistrationViewController: UIViewController {
         let parameters = ["email": emailTextField.text!, "password": passwordTextField.text!, "name": nameTextField.text!, "surname": surnameTextField.text!, "city": cityTextField.text!] as Dictionary<String,String>
        
         // создаем URL
-        let url = URL(string: "http://192.168.0.47:8000/register/") // поменять потом
+        let url = URL(string: "http://172.20.10.4:8000/register/")
         
         // создаем объект сессии
         let session = URLSession.shared
@@ -38,11 +38,12 @@ class RegistrationViewController: UIViewController {
             
         } catch let error {
             print(error.localizedDescription)
+            return
         }
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        // что это было?
+        
         
         // создает dataTask используя объект session чтобы отправить данные на сервер
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
