@@ -49,15 +49,17 @@ class RegistrationViewController: UIViewController {
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             guard error == nil else {
+                print(error!.localizedDescription)
                 return
             }
             
             guard let data = data else {
+                print(error!.localizedDescription)
                 return
             }
             
             do {
-                // создает json объект из данных
+                // создает json объект из данных, полученных в ответ от сервера
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
                     print(json)
                     // handle json...
