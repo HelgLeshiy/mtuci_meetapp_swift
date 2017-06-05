@@ -116,7 +116,7 @@ class RegistrationViewController: UIViewController {
         let parameters = ["email": emailTextField.text!, "password": passwordTextField.text!, "name": nameTextField.text!, "surname": surnameTextField.text!, "city": cityTextField.text!] as Dictionary<String,String>
        
         // создаем URL
-        let url = URL(string: "http://172.20.10.4:8000/register/")
+        let url = URL(string: "http://95.221.226.159:8000/register/")
         
         // создаем объект сессии
         let session = URLSession.shared
@@ -150,15 +150,9 @@ class RegistrationViewController: UIViewController {
                 return
             }
             
-            do {
-                // создает json объект из данных, полученных в ответ от сервера
-                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                    print(json)
-                    // здесь отобразится алерт об успехе или ошибке
-                }
-                
-            } catch let error {
-                print(error.localizedDescription)
+            let serverResponse = String(data: data, encoding: String.Encoding.utf8)!
+            if (serverResponse == "ok") {
+                self.present(alertSuccess, animated: true, completion: nil)
             }
         })
         task.resume()
