@@ -55,14 +55,7 @@ class RegistrationViewController: UIViewController {
         else {
             emailIsOk = false
         }
-        
-        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
-        if registrationDataIsOk {
-            registerButton.isEnabled = true
-        }
-        else {
-            registerButton.isEnabled = false
-        }
+        registerButton.isEnabled = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
     }
     
     @IBAction func checkPassword(_ sender: UITextField) { // условие - 6 или больше символов
@@ -72,14 +65,7 @@ class RegistrationViewController: UIViewController {
         else {
             passwordIsOk = false
         }
-        
-        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
-        if registrationDataIsOk {
-            registerButton.isEnabled = true
-        }
-        else {
-            registerButton.isEnabled = false
-        }
+        registerButton.isEnabled = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
     }
     @IBAction func checkName(_ sender: UITextField) { // toDo: добавить проверку на лишние символы
         if (nameTextField.text!.characters.count >= 2) {
@@ -89,14 +75,7 @@ class RegistrationViewController: UIViewController {
         else {
             nameIsOk = false
         }
-        
-        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
-        if registrationDataIsOk {
-            registerButton.isEnabled = true
-        }
-        else {
-            registerButton.isEnabled = false
-        }
+        registerButton.isEnabled = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
     }
     @IBAction func checkSurname(_ sender: UITextField) { // toDo: добавить проверку на лишние символы
         if (surnameTextField.text!.characters.count >= 2) {
@@ -106,14 +85,7 @@ class RegistrationViewController: UIViewController {
         else {
             surnameIsOk = false
         }
-        
-        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
-        if registrationDataIsOk {
-            registerButton.isEnabled = true
-        }
-        else {
-            registerButton.isEnabled = false
-        }
+        registerButton.isEnabled = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
     }
     @IBAction func checkCity(_ sender: UITextField) { // toDo: добавить проверку на лишние символы, лучше - переделать способ ввода города вообще
         if (cityTextField.text!.characters.count >= 2) {
@@ -123,14 +95,7 @@ class RegistrationViewController: UIViewController {
         else {
             cityIsOk = false
         }
-        
-        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
-        if registrationDataIsOk {
-            registerButton.isEnabled = true
-        }
-        else {
-            registerButton.isEnabled = false
-        }
+        registerButton.isEnabled = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
     }
     // конец проверки
     ////
