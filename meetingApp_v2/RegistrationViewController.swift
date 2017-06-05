@@ -8,18 +8,145 @@
 
 import UIKit
 
-class RegistrationViewController: UIViewController {
-    @IBOutlet weak var emailTextField: UITextField!
+// расширение класса String для коррекции первой буквы строки:
+extension String {
+    var first: String {
+        return String(characters.prefix(1))
+    }
+    var last: String {
+        return String(characters.suffix(1))
+    }
+    var uppercaseFirst: String {
+        return first.uppercased() + String(characters.dropFirst())
+    }
+}
 
+////
+// класс viewcontroller для регистрации
+//
+class RegistrationViewController: UIViewController {
+    
+    // toDo: исправить эти костыли
+    var emailIsOk = false
+    var passwordIsOk = false
+    var nameIsOk = false
+    var surnameIsOk = false
+    var cityIsOk = false
+    var registrationDataIsOk = false
+    
+    // объявление текстовых полей с данными для регистрации:
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var nameTextField: UITextField!
-    
     @IBOutlet weak var surnameTextField: UITextField!
-    
     @IBOutlet weak var cityTextField: UITextField!
     
+    @IBOutlet weak var registerButton: UIButton! // кнопка регистрации
+    
+    ////
+    // костыльная проверка полей с текстом:
+    // toDo: исправить костыли
+    @IBAction func checkEmail(_ sender: UITextField) {
+        // toDo: доработать условие
+        if ( (emailTextField.text != nil) && (emailTextField.text?.range(of: "@") != nil)
+            && (true)) {
+            emailIsOk = true
+        }
+        else {
+            emailIsOk = false
+        }
+        
+        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
+        if registrationDataIsOk {
+            registerButton.isEnabled = true
+        }
+        else {
+            registerButton.isEnabled = false
+        }
+    }
+    
+    @IBAction func checkPassword(_ sender: UITextField) { // условие - 6 или больше символов
+        if (passwordTextField.text!.characters.count >= 6) {
+            passwordIsOk = true
+        }
+        else {
+            passwordIsOk = false
+        }
+        
+        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
+        if registrationDataIsOk {
+            registerButton.isEnabled = true
+        }
+        else {
+            registerButton.isEnabled = false
+        }
+    }
+    @IBAction func checkName(_ sender: UITextField) { // toDo: добавить проверку на лишние символы
+        if (nameTextField.text!.characters.count >= 2) {
+            nameIsOk = true
+            nameTextField.text = nameTextField.text!.uppercaseFirst // исправление первой буквы на большую
+        }
+        else {
+            nameIsOk = false
+        }
+        
+        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
+        if registrationDataIsOk {
+            registerButton.isEnabled = true
+        }
+        else {
+            registerButton.isEnabled = false
+        }
+    }
+    @IBAction func checkSurname(_ sender: UITextField) { // toDo: добавить проверку на лишние символы
+        if (surnameTextField.text!.characters.count >= 2) {
+            surnameIsOk = true
+            surnameTextField.text = surnameTextField.text!.uppercaseFirst // исправление первой буквы на большую
+        }
+        else {
+            surnameIsOk = false
+        }
+        
+        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
+        if registrationDataIsOk {
+            registerButton.isEnabled = true
+        }
+        else {
+            registerButton.isEnabled = false
+        }
+    }
+    @IBAction func checkCity(_ sender: UITextField) { // toDo: добавить проверку на лишние символы, лучше - переделать способ ввода города вообще
+        if (cityTextField.text!.characters.count >= 2) {
+            cityIsOk = true
+            cityTextField.text = cityTextField.text!.uppercaseFirst // исправление первой буквы на большую
+        }
+        else {
+            cityIsOk = false
+        }
+        
+        registrationDataIsOk = emailIsOk && passwordIsOk && nameIsOk && surnameIsOk && cityIsOk
+        if registrationDataIsOk {
+            registerButton.isEnabled = true
+        }
+        else {
+            registerButton.isEnabled = false
+        }
+    }
+    // конец проверки
+    ////
+    
+    ////
+    // кнопка регистрации:
+    //
     @IBAction func registerAction(_ sender: Any) {
+        
+        // создание алерта об успехе:
+        let alertSuccess = UIAlertController(title: "Registration", message: "Регистрация прошла успешно", preferredStyle: UIAlertControllerStyle.alert)
+        alertSuccess.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        
+        // создание алерта об ошибке?
+        
+        
         // создаем переменную со словарем из вводимых данных "ключ-данные", подразумевается, что все введено верно
         let parameters = ["email": emailTextField.text!, "password": passwordTextField.text!, "name": nameTextField.text!, "surname": surnameTextField.text!, "city": cityTextField.text!] as Dictionary<String,String>
        
@@ -62,7 +189,7 @@ class RegistrationViewController: UIViewController {
                 // создает json объект из данных, полученных в ответ от сервера
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
                     print(json)
-                    // handle json...
+                    // здесь отобразится алерт об успехе или ошибке
                 }
                 
             } catch let error {
@@ -72,13 +199,14 @@ class RegistrationViewController: UIViewController {
         task.resume()
         
     }
-    
+    // конец регистрации
+    ////
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        registerButton.isEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
