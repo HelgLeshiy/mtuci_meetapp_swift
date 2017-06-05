@@ -26,6 +26,8 @@ extension String {
 //
 class RegistrationViewController: UIViewController {
     
+    @IBOutlet weak var ipTextField: UITextField!
+    
     // toDo: исправить эти костыли
     var emailIsOk = false
     var passwordIsOk = false
@@ -99,24 +101,22 @@ class RegistrationViewController: UIViewController {
     }
     // конец проверки
     ////
-    
+
     ////
     // кнопка регистрации:
     //
     @IBAction func registerAction(_ sender: Any) {
         
-        // создание алерта об успехе:
+        // создание алерта об успехе, toDo: не работает
         let alertSuccess = UIAlertController(title: "Registration", message: "Регистрация прошла успешно", preferredStyle: UIAlertControllerStyle.alert)
         alertSuccess.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        
-        // создание алерта об ошибке?
         
         
         // создаем переменную со словарем из вводимых данных "ключ-данные", подразумевается, что все введено верно
         let parameters = ["email": emailTextField.text!, "password": passwordTextField.text!, "name": nameTextField.text!, "surname": surnameTextField.text!, "city": cityTextField.text!] as Dictionary<String,String>
        
         // создаем URL
-        let url = URL(string: "http://95.221.226.159:8000/register/")
+        let url = URL(string: "http://" + ipTextField.text! + ":8000/register/") // ip берем из текстового поля, дабы не пересобирать постоянно
         
         // создаем объект сессии
         let session = URLSession.shared
@@ -136,7 +136,7 @@ class RegistrationViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        
+        var serverResponse: String = "default (not changed)"
         // создает dataTask используя объект session чтобы отправить данные на сервер
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
@@ -150,13 +150,13 @@ class RegistrationViewController: UIViewController {
                 return
             }
             
-            let serverResponse = String(data: data, encoding: String.Encoding.utf8)!
-            if (serverResponse == "ok") {
-                self.present(alertSuccess, animated: true, completion: nil)
-            }
+            serverResponse = String(data: data, encoding: String.Encoding.utf8)!
+            print("Server response: " + serverResponse)
+            //if (serverResponse == "ok") {
+                //self.present(self.alertSuccess, animated: true, completion: nil)
+            //}
         })
         task.resume()
-        
     }
     // конец регистрации
     ////

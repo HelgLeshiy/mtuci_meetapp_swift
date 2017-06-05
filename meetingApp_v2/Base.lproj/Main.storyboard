@@ -51,25 +51,40 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KLK-5p-Akg">
                                 <rect key="frame" x="70" y="292" width="180" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEs-T5-RlE">
                                 <rect key="frame" x="70" y="330" width="180" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Вход"/>
+                                <connections>
+                                    <action selector="loginAction:" destination="KEL-Fy-0Es" eventType="touchUpInside" id="DjN-rK-TI2"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="server IP address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A65-s7-r99">
+                                <rect key="frame" x="70" y="72" width="180" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="bRe-KG-yjj"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="qel-0K-WPX" id="LJ8-F1-nre"/>
+                        <outlet property="ipTextField" destination="A65-s7-r99" id="RvI-1A-ceg"/>
+                        <outlet property="passwordTextField" destination="KLK-5p-Akg" id="jo4-bD-lje"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sca-pJ-uuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,12 +161,20 @@
                                     <action selector="checkEmail:" destination="nZL-m5-nIa" eventType="editingChanged" id="fuJ-on-tk5"/>
                                 </connections>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="server IP address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MzP-iT-Ck8">
+                                <rect key="frame" x="60" y="72" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="cityTextField" destination="RS4-DM-qHh" id="tNa-Pn-2n8"/>
                         <outlet property="emailTextField" destination="iWm-RJ-xD0" id="Uid-YD-n72"/>
+                        <outlet property="ipTextField" destination="MzP-iT-Ck8" id="JKk-dE-k54"/>
                         <outlet property="nameTextField" destination="pmT-SR-Pri" id="whH-Tp-ede"/>
                         <outlet property="passwordTextField" destination="ZiF-iQ-FGD" id="AOg-We-Hvw"/>
                         <outlet property="registerButton" destination="h3o-Eu-Ypv" id="2Se-k8-kAa"/>
