@@ -313,6 +313,7 @@
 				A74764D91EDE42A9008645D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
