@@ -8,12 +8,14 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var ipTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var serverResponseLabel: UILabel!
     
     @IBAction func loginAction(_ sender: UIButton) {
         let parameters = ["email": emailTextField.text!, "password": passwordTextField.text!] as Dictionary<String,String>
@@ -55,6 +57,7 @@ class LoginViewController: UIViewController {
             
             serverResponse = String(data: data, encoding: String.Encoding.utf8)!
             print("Server response: " + serverResponse)
+            self.serverResponseLabel.text = "Server response: " + serverResponse
             //if (serverResponse == "ok") {
             //self.present(self.alertSuccess, animated: true, completion: nil)
             //}
@@ -66,12 +69,25 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        ipTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // спрятать клавиатуру по клику вне текстового поля
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // спрятать по клику на return
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
 

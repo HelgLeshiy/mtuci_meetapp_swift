@@ -24,7 +24,7 @@ extension String {
 ////
 // класс viewcontroller для регистрации
 //
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var ipTextField: UITextField!
     
@@ -44,6 +44,8 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var cityTextField: UITextField!
     
     @IBOutlet weak var registerButton: UIButton! // кнопка регистрации
+    
+    @IBOutlet weak var serverResponseLabel: UILabel!
     
     ////
     // костыльная проверка полей с текстом:
@@ -152,6 +154,7 @@ class RegistrationViewController: UIViewController {
             
             serverResponse = String(data: data, encoding: String.Encoding.utf8)!
             print("Server response: " + serverResponse)
+            self.serverResponseLabel.text = "Server response: " + serverResponse
             //if (serverResponse == "ok") {
                 //self.present(self.alertSuccess, animated: true, completion: nil)
             //}
@@ -164,8 +167,15 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    
         registerButton.isEnabled = false
+        
+        ipTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        nameTextField.delegate = self
+        surnameTextField.delegate = self
+        cityTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -173,6 +183,16 @@ class RegistrationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // спрятать клавиатуру по клику вне текстового поля
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // спрятать клавиатуру по клику на return
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 
     /*
     // MARK: - Navigation
